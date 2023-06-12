@@ -1,0 +1,28 @@
+{
+  "name": "backend_codebridge",
+  "version": "1.0.0",
+  "description": "codebridge challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stick2yourmind/backend_challenge.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "sql",
+    "error",
+    "handling",
+    "middleware",
+    "cors"
+  ],
+  "author": "Jonathan Max Saravia Moreira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stick2yourmind/backend_challenge/issues"
+  },
+  "homepage": "https://github.com/stick2yourmind/backend_challenge#readme"
+}
