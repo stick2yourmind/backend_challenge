@@ -16,6 +16,6 @@ log4js.configure({
   }
 })
 
-export const infoLogger = (msg:unknown) => log4js.getLogger('info').info(msg)
-export const warnLogger = (msg:unknown) => log4js.getLogger('warn').warn(msg)
-export const errorLogger = (msg:unknown) => log4js.getLogger('error').error(msg)
+export const infoLogger = (msg: unknown) => { log4js.getLogger('info').info(msg) }
+export const warnLogger = (msg: unknown) => { log4js.getLogger('warn').warn(msg) }
+export const errorLogger = (msg: unknown) => { log4js.getLogger('error').error(msg) }
