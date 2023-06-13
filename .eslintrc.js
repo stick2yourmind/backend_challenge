@@ -7,24 +7,33 @@ module.exports = {
   extends: [
     'standard-with-typescript'
   ],
+  ignorePatterns: ['**.log', '**.json'],
   overrides: [
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module'
+    sourceType: 'module',
+    project: [
+      './tsconfig.json'
+    ]
   },
-  plugins: ['typescript-sort-keys'],
+  plugins: [
+    'typescript-sort-keys'
+  ],
   rules: {
     curly: ['warn', 'multi'],
     'max-len': ['warn', {
-      code: 105,
+      code: 120,
       ignoreComments: true,
       ignoreRegExpLiterals: true,
       ignoreTrailingComments: true
     }],
     quotes: ['error', 'single'],
     'typescript-sort-keys/interface': 'error',
-    'typescript-sort-keys/string-enum': 'error'
+    'typescript-sort-keys/string-enum': 'error',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/strict-boolean-expressions': 'off',
+    '@typescript-eslint/no-misused-promises': 'off'
   }
 }
