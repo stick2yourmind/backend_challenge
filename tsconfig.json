@@ -108,6 +108,7 @@
   },
   "include": [
     ".eslintrc.js",
-    "**.ts"
+    "**.ts",
+    "**/**.ts"
 ]
 }
