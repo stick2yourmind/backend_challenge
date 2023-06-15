@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize'
+import { Sequelize } from '@sequelize/core'
 import { errorLogger, infoLogger } from '../config/logger.config'
 import {
   APP_DATABASE_HOST,
