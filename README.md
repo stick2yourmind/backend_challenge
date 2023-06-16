@@ -1,3 +1,12 @@
+## Flow chart
+
+![Flow chart](https://github.com/stick2yourmind/backend_challenge/blob/main/doc/data_flow.PNG?raw=true)
+## Error middleware
+
+![Error middleware](https://github.com/stick2yourmind/backend_challenge/blob/main/doc/error_middleware_chart.png?raw=true)
+
+
+
 ## Development
 
 
