@@ -16,10 +16,10 @@ Dog.init({
     type: DataTypes.STRING
   },
   tail_length: {
-    type: DataTypes.DECIMAL
+    type: DataTypes.INTEGER
   },
   weight: {
-    type: DataTypes.DECIMAL
+    type: DataTypes.INTEGER
   }
 
 }, {
