@@ -1,3 +1,4 @@
+require('dotenv').config()
 
 module.exports = {
   development: {
@@ -5,6 +6,8 @@ module.exports = {
     password: process.env.APP_DATABASE_PASSWORD,
     database: process.env.APP_DATABASE_NAME,
     host: process.env.APP_DATABASE_HOST,
+    server: process.env.APP_DATABASE_HOST,
+    port: process.env.APP_DATABASE_PORT,
     dialect: 'mssql'
   },
   test: {
