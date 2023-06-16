@@ -5,14 +5,16 @@
   "main": "index.js",
   "scripts": {
     "prod:build": "dotenv -e .env.production -- tsc --build .",
-    "prod:db:init": "docker compose --env-file ./.env.production up",
-    "prod:db:create": "dotenv -e .env.production -- npx ts-node-dev src/utils/createDatabase.util.ts",
-    "prod:db:init-seed": "npx dotenv -e .env.production -- npx ts-node-dev src/seeders/initialSeed.ts",
+    "prod:db:init": "docker compose --env-file ./.env.production up -d",
+    "prod:db:create": "dotenv -e .env.production -- node dist/src/utils/createDatabase.util.js",
+    "prod:db:init-seed": "npx dotenv -e .env.production -- node dist/src/seeders/initialSeed.js",
     "prod:start": "dotenv -e .env.production -- node dist/index.js",
-    "dev:db:init": "docker compose --env-file ./.env.development up",
-    "dev:db:create": "dotenv -e .env.development -- npx ts-node-dev src/utils/createDatabase.util.ts",
+    "prod:deploy": "npm i && npm run prod:build && npm run prod:db:init && npm run prod:db:create && npm run prod:db:init-seed && npm run prod:start",
+    "dev:db:init": "docker compose --env-file ./.env.development up -d",
+    "dev:db:create": "npm i && npx dotenv -e .env.development -- npx ts-node-dev src/utils/createDatabase.util.ts",
     "dev:db:init-seed": "npx dotenv -e .env.development -- npx ts-node-dev src/seeders/initialSeed.ts",
-    "dev:start": "dotenv -e .env.development -- npx ts-node-dev --respawn index.ts",
+    "dev:db:start": "npm run dev:db:init && npm run dev:db:create && npm run dev:db:init-seed",
+    "dev:start": "npx dotenv -e .env.development -- npx ts-node-dev --respawn index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

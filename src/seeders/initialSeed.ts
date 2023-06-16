@@ -1,4 +1,5 @@
-import { errorLogger, infoLogger } from '../config/logger.config'
+import { UniqueConstraintError } from '@sequelize/core'
+import { errorLogger, infoLogger, warnLogger } from '../config/logger.config'
 import { sequelize } from '../database/database'
 import Dog from '../models/dog.model'
 
@@ -25,6 +26,7 @@ export const initialSeed = async () => {
 initialSeed()
   .then(() => { infoLogger('initial seed applied') })
   .catch((error) => {
-    console.log('🚀 ~ file: initialSeed.ts:28 ~ error:', error)
-    errorLogger('initial seed could not be applied')
+    if (error instanceof UniqueConstraintError)
+      warnLogger(error)
+    else errorLogger(error)
   })
