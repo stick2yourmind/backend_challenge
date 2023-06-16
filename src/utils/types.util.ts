@@ -6,3 +6,8 @@ export interface IFailedResponseProps {
   error: Array<Record<string, string>> | string
   statusCode: number
 }
+
+export interface ICustomErrorProps {
+  error: Array<Record<string, string>> | string
+  statusCode: number
+}
