@@ -5,7 +5,6 @@ import { HTTP_CODE } from '../data/httpCode.data'
 import CustomError from '../utils/error.util'
 
 const errorMiddleware: ErrorRequestHandler = (error, req, res, next) => {
-  // Todo: Analize error to define status code
   const status = error.status || HTTP_CODE.BAD_REQUEST
   let errorResponse = {}
   if (error instanceof CustomError)
