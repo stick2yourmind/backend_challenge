@@ -2,7 +2,8 @@ import { type NextFunction, type Request, type Response } from 'express'
 import { HTTP_CODE } from '../data/httpCode.data'
 import { objectArrayToObjectSnake } from '../utils/adapters.util'
 import { GetDogValidate } from '../utils/validation/getDog.validate'
-import { CreateDogValidate } from '../utils/validation/createDog.validate'
+import { createDogService } from '../services/dog/dog.service'
+import { apiSuccessResponse } from '../utils/api.util'
 
 export const getAllDogs = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -23,10 +24,11 @@ export const getAllDogs = async (req: Request, res: Response, next: NextFunction
 export const createDog = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name, color, tail_length: tailLength, weight } = req.body
-    const dog = new CreateDogValidate({ name, color, tailLength, weight })
-    const isValid = await dog.isValid()
-    if (isValid?.value)
-      return res.status(HTTP_CODE.OK).json({ message: true })
+    const isValid = await createDogService({ name, color, tailLength, weight })
+    if (isValid?.success)
+      return res.status(HTTP_CODE.OK).json(
+        apiSuccessResponse({ data: isValid.data, statusCode: HTTP_CODE.OK })
+      )
     else
       return res
         .status(HTTP_CODE.BAD_REQUEST)
