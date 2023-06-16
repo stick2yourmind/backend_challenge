@@ -6,8 +6,8 @@ export interface ICreateDogProps {
 }
 
 export interface IGetDogProps {
-  attribute?: string
-  order?: string
-  pageNumber?: number
-  pageSize?: number
+  attribute?: unknown
+  order?: unknown
+  pageNumber?: unknown
+  pageSize?: unknown
 }
