@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "prod:build": "dotenv -e .env.production -- tsc --build .",
-    "prod:start": "dotenv -e .env.production -- node dist/index.js",
+    "prod:db:init": "docker compose --env-file ./.env.production up",
     "prod:db:create": "dotenv -e .env.production -- npx ts-node-dev src/utils/createDatabase.util.ts",
+    "prod:start": "dotenv -e .env.production -- node dist/index.js",
+    "dev:db:init": "docker compose --env-file ./.env.development up",
     "dev:db:create": "dotenv -e .env.development -- npx ts-node-dev src/utils/createDatabase.util.ts",
-    "dev:start": "dotenv -e .env.development -- npx ts-node-dev --respawn -T index.ts",
+    "dev:start": "dotenv -e .env.development -- npx ts-node-dev --respawn index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
