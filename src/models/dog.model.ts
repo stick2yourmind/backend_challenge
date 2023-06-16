@@ -12,11 +12,14 @@ Dog.init({
     type: DataTypes.STRING,
     unique: true
   },
+  color: {
+    type: DataTypes.STRING
+  },
   tail_length: {
-    type: DataTypes.INTEGER
+    type: DataTypes.DECIMAL
   },
   weight: {
-    type: DataTypes.INTEGER
+    type: DataTypes.DECIMAL
   }
 
 }, {
