@@ -11,6 +11,7 @@ const createDatabase = () => {
     try {
       await pool.query(CREATE_DATABASE_QUERY)
       infoLogger(`Database: ${APP_DATABASE_NAME} created`)
+      await pool.close()
     } catch (error) {
       errorLogger(error)
     }
