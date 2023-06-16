@@ -1,4 +1,3 @@
-import crypto from 'crypto'
 import { type IFailedResponseProps, type ISuccessResponseProps } from './types.util'
 
 export const apiSuccessResponse = ({ data, statusCode = 200 }: ISuccessResponseProps) => {
@@ -10,11 +9,9 @@ export const apiSuccessResponse = ({ data, statusCode = 200 }: ISuccessResponseP
 }
 
 export const apiFailedResponse = ({ error, statusCode = 500 }: IFailedResponseProps) => {
-  const id = crypto.randomUUID()
   return {
     error: true,
     message: error,
-    statusCode,
-    errorId: id
+    statusCode
   }
 }
