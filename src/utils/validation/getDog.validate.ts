@@ -1,27 +1,29 @@
-import { Min, validate, IsString, IsIn, IsInt, IsOptional } from 'class-validator'
+import { Min, validate, IsString, IsIn, IsInt, IsOptional, Max } from 'class-validator'
 import { errorLogger } from '../../config/logger.config'
 import { type IGetDogProps } from './types.validate'
+import { type IGetDogAttributes } from '../types.util'
 
 export class GetDogValidate {
   @IsOptional()
   @IsString()
   @IsIn(['asc', 'desc'])
-    order?: string
+    order?: unknown
 
-  @IsOptional()
   @IsString()
   @IsIn(['name', 'color', 'tail_length', 'weight'])
-    attribute?: string
+    attribute?: unknown
 
   @IsOptional()
   @Min(1)
+  @Max(500)
   @IsInt()
-    pageNumber?: number
+    pageNumber?: unknown
 
   @IsOptional()
   @Min(1)
+  @Max(50)
   @IsInt()
-    pageSize?: number
+    pageSize?: unknown
 
   constructor ({ attribute, order, pageNumber, pageSize }: IGetDogProps) {
     this.attribute = attribute ?? 'name'
@@ -32,10 +34,10 @@ export class GetDogValidate {
 
   getAttributes () {
     return {
-      attribute: this.attribute,
-      order: this.order,
-      pageNumber: this.pageNumber,
-      pageSize: this.pageSize
+      attribute: String(this.attribute).toLowerCase() as IGetDogAttributes['attribute'],
+      order: String(this.order).toLowerCase() as IGetDogAttributes['order'],
+      pageNumber: this.pageNumber as IGetDogAttributes['pageNumber'],
+      pageSize: this.pageSize as IGetDogAttributes['pageSize']
     }
   }
 
@@ -45,7 +47,7 @@ export class GetDogValidate {
       if (errors.length > 0) {
         const resError = errors.map(error => {
           const property = error.property
-          const message = Object.values(error?.constraints || {}).toString()
+          const message = Object.values(error?.constraints ?? {}).toString()
           return { [property]: message }
         })
         return { value: false, error: resError }

@@ -1,6 +1,7 @@
-import { Min, IsDefined, validate, IsNumber, IsString } from 'class-validator'
+import { Min, IsDefined, validate, IsNumber, IsString, Matches } from 'class-validator'
 import { errorLogger } from '../../config/logger.config'
 import { type ICreateDogProps } from './types.validate'
+import { DOG_COLOR_REGEX } from '../../data/constant.data'
 
 export class CreateDogValidate {
   @IsDefined({
@@ -12,7 +13,13 @@ export class CreateDogValidate {
   @IsDefined({
     message: ({ property }: { property: string }) => `${property} is required`
   })
-  @IsString()
+  @Matches(
+    DOG_COLOR_REGEX,
+    {
+      message: ({ property }: { property: string }) =>
+      `${property} must have the following pattern for single color: color
+      ${property} must have the following pattern for multiple colors: color1&color2`
+    })
     color: string
 
   @IsDefined({
@@ -30,8 +37,8 @@ export class CreateDogValidate {
     weight: number
 
   constructor ({ color, name, tailLength, weight }: ICreateDogProps) {
-    this.color = color
-    this.name = name
+    this.color = color.toLowerCase()
+    this.name = name.toLowerCase()
     this.tailLength = tailLength
     this.weight = weight
   }
@@ -51,7 +58,7 @@ export class CreateDogValidate {
       if (errors.length > 0) {
         const resError = errors.map(error => {
           const property = error.property
-          const message = Object.values(error?.constraints || {}).toString()
+          const message = Object.values(error?.constraints ?? {}).toString()
           return { [property]: message }
         })
         return { value: false, error: resError }
