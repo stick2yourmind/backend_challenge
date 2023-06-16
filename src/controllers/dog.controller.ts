@@ -1,21 +1,26 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { HTTP_CODE } from '../data/httpCode.data'
 import { objectArrayToObjectSnake } from '../utils/adapters.util'
-import { GetDogValidate } from '../utils/validation/getDog.validate'
-import { createDogService } from '../services/dog/dog.service'
+import { createDogService, getDogService } from '../services/dog/dog.service'
 import { apiSuccessResponse } from '../utils/api.util'
+import { type DogRequest } from '../data/types.data'
+import type Dog from '../models/dog.model'
 
-export const getAllDogs = async (req: Request, res: Response, next: NextFunction) => {
+export const getAllDogs = async (req: DogRequest, res: Response, next: NextFunction) => {
   try {
-    const { attribute, pageNumber, pageSize, order } = req.body
-    const dog = new GetDogValidate({ attribute, pageNumber, pageSize, order })
-    const isValid = await dog.isValid()
-    if (isValid?.value)
-      return res.status(HTTP_CODE.OK).json({ message: true })
-    else
-      return res
-        .status(HTTP_CODE.BAD_REQUEST)
-        .json({ error: isValid?.error })
+    const { attribute, pageNumber, pageSize, order } = req.query
+    const isValid = await getDogService({ attribute, pageNumber, pageSize, order })
+
+    if (isValid?.success)
+      return res.status(HTTP_CODE.OK).json(
+        apiSuccessResponse({ data: (isValid.data as Dog[]), statusCode: HTTP_CODE.OK })
+      )
+
+    return res
+      .status(HTTP_CODE.BAD_REQUEST)
+      .json({
+        error: objectArrayToObjectSnake(isValid?.error as Array<Record<string, string>>)
+      })
   } catch (error) {
     next(error)
   }
@@ -29,12 +34,12 @@ export const createDog = async (req: Request, res: Response, next: NextFunction)
       return res.status(HTTP_CODE.OK).json(
         apiSuccessResponse({ data: isValid.data, statusCode: HTTP_CODE.OK })
       )
-    else
-      return res
-        .status(HTTP_CODE.BAD_REQUEST)
-        .json({
-          error: objectArrayToObjectSnake(isValid?.error as Array<Record<string, string>>)
-        })
+
+    return res
+      .status(HTTP_CODE.BAD_REQUEST)
+      .json({
+        error: objectArrayToObjectSnake(isValid?.error as Array<Record<string, string>>)
+      })
   } catch (error) {
     next(error)
   }
