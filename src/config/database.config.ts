@@ -5,6 +5,7 @@ export const APP_DATABASE_USER = process.env.APP_DATABASE_USER ?? ''
 export const APP_DATABASE_PASSWORD = process.env.APP_DATABASE_PASSWORD ?? ''
 export const APP_DATABASE_HOST = process.env.APP_DATABASE_HOST ?? ''
 export const APP_INITIAL_DATABASE_NAME = process.env.APP_INITIAL_DATABASE_NAME ?? ''
+export const APP_DATABASE_PORT = Number(process.env.APP_DATABASE_PORT)
 
 export const CREATE_DATABASE_QUERY = `
 IF NOT EXISTS(
@@ -18,6 +19,7 @@ export const initialSqlConfig = {
   password: APP_DATABASE_PASSWORD,
   database: APP_INITIAL_DATABASE_NAME,
   server: APP_DATABASE_HOST,
+  port: APP_DATABASE_PORT,
   pool: {
     max: 10,
     min: 0,
