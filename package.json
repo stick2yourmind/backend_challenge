@@ -15,7 +15,10 @@
     "dev:db:init-seed": "npx dotenv -e .env.development -- npx ts-node-dev src/seeders/initialSeed.ts",
     "dev:db:start": "npm run dev:db:init && npm run dev:db:create && npm run dev:db:init-seed",
     "dev:start": "npx dotenv -e .env.development -- npx ts-node-dev --respawn index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:db:init": "docker compose --env-file ./.env.test up -d",
+    "test:db:create": "npm i && npx dotenv -e .env.test -- npx ts-node-dev src/utils/createDatabase.util.ts",
+    "test:ready": "npm run test:db:init && npm run test:db:create",
+    "test:start": "npm run test:ready && npx dotenv -e .env.test -- npx jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -38,8 +41,10 @@
   "homepage": "https://github.com/stick2yourmind/backend_challenge#readme",
   "devDependencies": {
     "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.2",
     "@types/mssql": "^8.1.2",
     "@types/node": "^20.3.0",
+    "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.59.11",
     "@typescript-eslint/parser": "^5.59.11",
     "eslint": "^8.42.0",
@@ -48,6 +53,9 @@
     "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-typescript-sort-keys": "^2.3.0",
+    "jest": "^29.5.0",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.1.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.1.3"
   },
