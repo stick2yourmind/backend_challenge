@@ -15,7 +15,8 @@ export const sequelize = new Sequelize(
   {
     host: APP_DATABASE_HOST,
     dialect: 'mssql',
-    port: APP_DATABASE_PORT
+    port: APP_DATABASE_PORT,
+    logging: false
   }
 )
 
