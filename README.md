@@ -35,6 +35,15 @@ To build the project, compose a docker container with SQL Server, create a datab
   npm run prod:deploy
 ```
 
+## Testing
+
+
+To compose a container with SQL Server, create a database for testing
+
+```
+  npm run test:start
+```
+
 ## Request
 
 ping:
@@ -62,3 +71,4 @@ http://localhost:3010/dog?&pageSize=2&attribute=name&pageNumber=1&order=desc
 - Script for building & start server on production
 - Script for start server on development
 - Validation of request.body & request.query data
+- Testing

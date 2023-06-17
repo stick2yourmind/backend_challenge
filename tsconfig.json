@@ -110,5 +110,5 @@
     ".eslintrc.js",
     "**.ts",
     "**/**.ts"
-, "src/config/config.js", "src/db/*/*.js"]
+, "src/config/config.js", "src/db/*/*.js", "__tests__"],
 }
